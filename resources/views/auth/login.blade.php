@@ -1,56 +1,23 @@
+@extends('layouts.app')
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Management System</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
+@section('title', 'Login')
+@section('heading', 'Login')
+@section('deskripsi', 'Masuk untuk mengakses sistem Restoran & Cafe.')
 
-    <div class="auth-page">
-        <div class="auth-container">
+@section('content')
+  <form method="POST" action="{{ url('/login') }}">
+    @csrf
 
-            <h2>Login</h2>
-            <p class="auth-description">
-                Silakan masuk ke akun Management System Anda.
-            </p>
-
-            @if ($errors->any())
-                <div class="auth-error">
-                    {{ $errors->first() }}
-                </div>
-            @endif
-
-            <form action="/login" method="POST" class="auth-form">
-                @csrf
-
-                <div>
-                    <label>Email</label>
-                    <input type="email" name="email"
-                           value="{{ old('email') }}"
-                           placeholder="Masukkan email"
-                           required>
-                </div>
-
-                <div>
-                    <label>Password</label>
-                    <input type="password" name="password"
-                           placeholder="Masukkan password"
-                           required>
-                </div>
-
-                <button type="submit">Masuk</button>
-            </form>
-
-            <p class="auth-link">
-                Belum punya akun?
-                <a href="/register">Daftar di sini</a>
-            </p>
-
-        </div>
+    <div>
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" value="{{ old('email') }}" required autofocus>
     </div>
 
-</body>
-</html>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required>
+    </div>
+
+    <button type="submit">Login</button>
+  </form>
+@endsection

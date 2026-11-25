@@ -1,59 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Management System')</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+  <title>@yield('title') | Restoran &amp; Cafe</title>
+  <link rel="stylesheet" href="{{ asset('style.css') }}">
 </head>
-<body>
-
-    <div class="app-layout">
-
-        <aside class="sidebar">
-            <h2>Management System</h2>
-
-            <nav>
-                <a href="/dashboard"
-                   class="{{ request()->is('dashboard') || request()->is('/') ? 'active' : '' }}">
-                    Dashboard
-                </a>
-
-                <a href="/supplier"
-                   class="{{ request()->is('supplier') || request()->is('tambah') || request()->is('edit/*') ? 'active' : '' }}">
-                    Supplier
-                </a>
-
-                <a href="#">Menu</a>
-                <a href="#">Meja & Area</a>
-                <a href="#">Staff</a>
-            </nav>
-        </aside>
-
-        <main class="main-content">
-
-            <header class="topbar" style="display: flex; justify-content: space-between; align-items: center;">
-                <h3>@yield('heading', 'Dashboard')</h3>
-
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <span>Halo, {{ Auth::user()->name }}</span>
-
-                    <form action="/logout" method="POST">
-                        @csrf
-                        <button type="submit" style="background: #dc2626; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer;">
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </header>
-
-            <section class="content">
-                @yield('content')
-            </section>
-
-        </main>
+<body class="{{ file_exists(public_path('img/fotogue.jpg')) ? 'foto' : '' }}">
+  <header class="resto">
+    <div class="resto-isi">
+      <h1>@yield('heading')</h1>
+      <p>@yield('deskripsi')</p>
+      @yield('ringkasan')
     </div>
-
+  </header>
+ 
+  <main>
+    @if (session('error'))
+      <p class="pesan error">{{ session('error') }}</p>
+    @endif
+    @if (session('sukses'))
+      <p class="pesan">{{ session('sukses') }}</p>
+    @endif
+    @foreach ($errors->all() as $pesanError)
+      <p class="pesan error">{{ $pesanError }}</p>
+    @endforeach
+ 
+    @yield('content')
+  </main>
 </body>
 </html>
