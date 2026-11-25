@@ -1,58 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Management System')</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <title>Staff & Pegawai</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 font-sans antialiased">
 
-    <div class="app-layout">
+    <!-- Kontainer Full Page Tanpa Sidebar -->
+    <div class="min-h-screen flex flex-col">
+        
+        <!-- Header Atas -->
+        <header class="bg-white shadow-sm h-16 flex items-center justify-between px-8 border-b">
+            <div class="text-sm font-semibold text-gray-600">
+                Staff & Pegawai
+            </div>
+            <div class="flex items-center space-x-3">
+                <span class="text-sm font-medium text-gray-700">Admin</span>
+            </div>
+        </header>
 
-        <aside class="sidebar">
-            <h2>Management System</h2>
-
-            <nav>
-                <a href="/dashboard"
-                   class="{{ request()->is('dashboard') || request()->is('/') ? 'active' : '' }}">
-                    Dashboard
-                </a>
-
-                <a href="/supplier"
-                   class="{{ request()->is('supplier') || request()->is('tambah') || request()->is('edit/*') ? 'active' : '' }}">
-                    Supplier
-                </a>
-
-                <a href="#">Menu</a>
-                <a href="#">Meja & Area</a>
-                <a href="#">Staff</a>
-            </nav>
-        </aside>
-
-        <main class="main-content">
-
-            <header class="topbar" style="display: flex; justify-content: space-between; align-items: center;">
-                <h3>@yield('heading', 'Dashboard')</h3>
-
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <span>Halo, {{ Auth::user()->name }}</span>
-
-                    <form action="/logout" method="POST">
-                        @csrf
-                        <button type="submit" style="background: #dc2626; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer;">
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </header>
-
-            <section class="content">
-                @yield('content')
-            </section>
-
+        <!-- Bagian Isi Halaman (Full Width) -->
+        <main class="flex-1 p-8 max-w-7xl mx-auto w-full">
+            @yield('content')
         </main>
+
     </div>
 
 </body>
